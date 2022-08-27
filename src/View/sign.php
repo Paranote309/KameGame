@@ -1,5 +1,25 @@
 <?php
-//require_once ('src/loginDetails.php');
+if (isset($_POST['submit'])) {
+    try {
+        require_once 'DBconnect.php';
+        $new_user = array(
+            "username" => $_POST['username'],
+            "password" => $_POST['password'],
+            "email" => $_POST['email'],
+            "age" => $_POST['age'],
+            "location" => $_POST['location']
+        );
+        $sql = sprintf("INSERT INTO %s (%s) values (%s)", "users",
+            implode(", ", array_keys($new_user)),
+            ":" . implode(", :", array_keys($new_user)));
+        $statement = $connection->prepare($sql);
+        $statement->execute($new_user);
+
+
+    } catch(PDOException $error) {
+        echo $sql . "<br>" . $error->getMessage();
+    }
+}
 ?>
 <?php require '../layout/header2.php'; ?> <h2>Sign up </h2>
 
@@ -24,6 +44,6 @@
 
 
 
-<a href="index.php">Back to home</a>
+<a href="home.php">Back to home</a>
 
 <?php require '../layout/footer.php'; ?>

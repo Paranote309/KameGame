@@ -1,21 +1,8 @@
-
-<?php
-    require 'lib/functions.php';
-
-
-
-
-    $cleverWelcomeMessage = "Welcome to Kame Game " ;
-
-
-
-?>
-
-<?php require '../layout/header2.php'; ?>
+<?php require 'layout/header2.php'; ?>
 
     <div class="jumbotron">
         <div class="container">
-            <h1><?php echo strtoupper(strtolower($cleverWelcomeMessage)) + $_SESSION['username']; ; ?></h1>
+            <h1><?php //echo "Welcome" + $_SESSION['username']; ?></h1>
 
             <p>With books!</p>
 
@@ -50,4 +37,4 @@
 
         <hr>
 
-<?php require '../layout/footer.php'; ?>
+<?php require 'layout/footer.php'; ?>

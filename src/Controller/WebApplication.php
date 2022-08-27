@@ -2,32 +2,42 @@
 
 namespace KameGame;
 
+use KameGame\MainController;
+use KameGame\LoginController;
+
 class WebApplication
 {
-    private $mainController;
+
+    private LoginController $loginController;
+    private MainController $mainController;
 
     public function __construct()
     {
+        $this->loginController = new LoginController();
         $this->mainController = new MainController();
     }
 
     public function run()
     {
+
+        foreach($_GET as $key => $value) {
+            $_GET[$key] = Utility::validate($value);
+        }
+
+        foreach($_POST as $key => $value) {
+            $_POST[$key] = Utility::validate($value);
+        }
+
         $action = filter_input(INPUT_GET, 'action');
 
         switch($action){
-            case 'show':
-                $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-                $this->mainController->showAction($id);
-                break;
-
-            case 'list':
-                $this->mainController->listAction();
+            case 'login':
+                $this->loginController->Login();
                 break;
 
             case 'home':
             default:
-                $this->mainController->homeAction();
+                $this->mainController->Home();
         }
     }
 }

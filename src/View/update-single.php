@@ -8,40 +8,40 @@ require 'lib/functions.php';
 if (isset($_POST['submit'])) {
     try {
         require_once 'src/DBconnect.php';
- $user =[
-     "id" => $_POST['id'],
-     "username" => $_POST['username'],
-     "password" => $_POST['password'],
-     "email" => $_POST['email'],
-     "age" => $_POST['age'],
-     "location" => $_POST['location'],
-     "date" => $_POST['date']
- ];
- $sql = "UPDATE users
- SET id = :id,
- username = :username,
- password = :password,
- email = :email,
- age = :age,
- location = :location,
- date = :date
- WHERE id = :id";
- $statement = $connection->prepare($sql);
- $statement->execute($user);
- } catch(PDOException $error) {
+        $user = [
+            "id" => $_POST['id'],
+            "username" => $_POST['username'],
+            "password" => $_POST['password'],
+            "email" => $_POST['email'],
+            "age" => $_POST['age'],
+            "location" => $_POST['location'],
+            "date" => $_POST['date']
+        ];
+        $sql = "UPDATE users
+                SET id = :id,
+                 username = :username,
+                 password = :password,
+                 email = :email,
+                 age = :age,
+                 location = :location,
+                 date = :date
+                 WHERE id = :id";
+        $statement = $connection->prepare($sql);
+        $statement->execute($user);
+    } catch (PDOException $error) {
         echo $sql . "<br>" . $error->getMessage();
     }
 }
 if (isset($_GET['id'])) {
     try {
         require_once 'src/DBconnect.php';
- $id = $_GET['id'];
- $sql = "SELECT * FROM users WHERE id = :id";
- $statement = $connection->prepare($sql);
- $statement->bindValue(':id', $id);
- $statement->execute();
- $user = $statement->fetch(PDO::FETCH_ASSOC);
- } catch(PDOException $error) {
+        $id = $_GET['id'];
+        $sql = "SELECT * FROM users WHERE id = :id";
+        $statement = $connection->prepare($sql);
+        $statement->bindValue(':id', $id);
+        $statement->execute();
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $error) {
         echo $sql . "<br>" . $error->getMessage();
     }
 } else {
@@ -59,7 +59,7 @@ if (isset($_GET['id'])) {
     <?php foreach ($user as $key => $value) : ?>
         <label for="<?php echo $key; ?>"><?php echo ucfirst($key); ?></label>
         <input type="text" name="<?php echo $key; ?>" id="<?php echo $key;
-        ?>" value="<?php echo escape($value); ?>" <?php echo ($key === 'id' ?
+        ?>" value="<?php echo escape($value); ?>" <?php echo($key === 'id' ?
             'readonly' : null); ?>>
     <?php endforeach; ?>
     <input type="submit" name="submit" value="Submit">

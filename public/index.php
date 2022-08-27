@@ -1,8 +1,7 @@
 <?php
-require_once __DIR__ . ;
+require_once  "../autoload.php";
 
 use KameGame\WebApplication;
 
 $app = new WebApplication();
 $app->run();
-

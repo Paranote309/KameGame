@@ -2,6 +2,9 @@
 
 namespace KameGame;
 
+use Exception;
+use PDO;
+
 class Database
 {
     const MYSQL_HOST = 'localhost';
@@ -22,17 +25,17 @@ class Database
     public function __construct()
     {
         try {
-            $this->connection = new \PDO(
+            $this->connection = new PDO(
                 self::DATA_SOURCE_NAME,
                 self::MYSQL_USER,
                 self::MYSQL_PASSWORD
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             var_dump($e);
         }
     }
 
-    private function exceptionMessage(\Exception $e): string
+    private function exceptionMessage(Exception $e): string
     {
         $separator = "\n<pre>\n";
         $message = "--- DB error ---";
@@ -57,5 +60,42 @@ class Database
 
         $separator = "\n<pre>\n";
         return $message . $separator;
+    }
+
+    public function getAll(string $tablename): bool|array
+    {
+        $sql = 'SELECT * FROM ' . $tablename;
+
+        return $this->connection
+            ->prepare($sql)
+            ->execute()
+            ->setFetchMode(PDO::FETCH_CLASS, 'KameGame\\' . $tablename)
+            ->fetchAll();
+    }
+
+    public function getOne(string $tablename, string $column, string $value)
+    {
+//        $sql = 'SELECT * FROM :tablename WHERE :column LIKE :value';
+
+        $sql = 'SELECT * FROM '.$tablename.' WHERE '.$column.' LIKE "'.$value .'"';
+
+        $stmt = $this->connection->prepare($sql);
+//        $stmt->bindParam(":tablename", $tablename);
+//        $stmt->bindParam(":column", $column);
+//        $stmt->bindParam(":value", $value);
+
+
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'KameGame\\'. $tablename);
+        return $stmt->fetch();
+    }
+
+    public function addOne(string $tablename, array $values)
+    {
+
+        $sql = sprintf("INSERT INTO '.$tablename.' (%s) values (%s)", "users", implode(", ", array_keys($values)));
+        $stmt =$this->connection->prepare($sql);
+        $stmt->execute($values);
+
     }
 }
