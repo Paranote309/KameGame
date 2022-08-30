@@ -1,10 +1,16 @@
-<?php
-require 'lib/functions.php';
-?>
-<?php require '../layout/header.php'; ?>
+<?php require 'layout/header.php'; ?>
 
-<h1>
+<div class="jumbotron">
+    <div class="container">
+        <h1> Contact us </h1>
+        <p>Email us with any questions or inquiries or call us
+            We would be happy to answer your questions.<br><br>
+            Email- KameGame@gmail.com<br>
+            Phone nummber- 203-353-1274
+          </p>
+    </div>
+</div>
 
-</h1>
+
 
 <?php require 'layout/footer.php'; ?>

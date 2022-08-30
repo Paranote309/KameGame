@@ -66,25 +66,18 @@ class Database
     {
         $sql = 'SELECT * FROM ' . $tablename;
 
-        return $this->connection
-            ->prepare($sql)
-            ->execute()
-            ->setFetchMode(PDO::FETCH_CLASS, 'KameGame\\' . $tablename)
-            ->fetchAll();
+
+        $stmt = $this->connection->prepare($sql);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'KameGame\\' . $tablename);
+            return $stmt->fetchAll();
     }
 
     public function getOne(string $tablename, string $column, string $value)
     {
-//        $sql = 'SELECT * FROM :tablename WHERE :column LIKE :value';
-
-        $sql = 'SELECT * FROM '.$tablename.' WHERE '.$column.' LIKE "'.$value .'"';
+       $sql = 'SELECT * FROM ' .$tablename. ' WHERE ' .$column. ' LIKE  "'. $value .'"';
 
         $stmt = $this->connection->prepare($sql);
-//        $stmt->bindParam(":tablename", $tablename);
-//        $stmt->bindParam(":column", $column);
-//        $stmt->bindParam(":value", $value);
-
-
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'KameGame\\'. $tablename);
         return $stmt->fetch();
@@ -93,7 +86,9 @@ class Database
     public function addOne(string $tablename, array $values)
     {
 
-        $sql = sprintf("INSERT INTO '.$tablename.' (%s) values (%s)", "users", implode(", ", array_keys($values)));
+
+        $sql = sprintf( "INSERT INTO %s (%s) values (%s)", $tablename, implode(", ", array_keys($values)), ":" . implode(", :", array_keys($values))
+        );
         $stmt =$this->connection->prepare($sql);
         $stmt->execute($values);
 

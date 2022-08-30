@@ -1,40 +1,17 @@
-<?php require 'layout/header2.php'; ?>
+<?php require 'layout/header.php'; ?>
+<div class="py-5 text-center">
 
-    <div class="jumbotron">
-        <div class="container">
-            <h1><?php //echo "Welcome" + $_SESSION['username']; ?></h1>
+    <div class="jumbotron mx-auto" style="width: 25%">
+        <div class="container ">
+            <h1><?php echo "Welcome " . $_SESSION['user']->getUsername(); ?></h1>
 
-            <p>With books!</p>
+            <p>products Below!</p>
 
-            <p><a class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+            <p><a class="btn btn-primary btn-lg " href="/?action=products"> Products &raquo;</a></p>
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <?php //foreach ($book as $books) { ?>
-                <div class="col-lg-4 book-list-item">
-                    <h2><?php  //echo $books['name']; ?></h2>
 
-                    <img src="/images/<?php //echo $books['image']; ?>" class="img-rounded">
-
-                    <blockquote class="book-details">
-                        <span class="label label-info"></span>
-                        <?php
-                        //if (!array_key_exists('price', $books) || $books['price'] == '') {
-                            //echo 'Unknown';
-                        //} //elseif ($books['price'] == 'hidden') {
-                           // echo '(contact owner for price)';
-                        //} //else {
-                           // echo $books['price'];
-                           // echo ' euro';
-                        //}
-                        ?>
-                        <?php //echo "ISBN:".$books['ISBN']; ?>
-                </div>
-            <?php //} ?>
-        </div>
-
-        <hr>
+</div>
 
 <?php require 'layout/footer.php'; ?>

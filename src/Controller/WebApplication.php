@@ -3,17 +3,17 @@
 namespace KameGame;
 
 use KameGame\MainController;
-use KameGame\LoginController;
+use KameGame\AccountController;
 
 class WebApplication
 {
 
-    private LoginController $loginController;
+    private AccountController $accountController;
     private MainController $mainController;
 
     public function __construct()
     {
-        $this->loginController = new LoginController();
+        $this->accountController = new AccountController();
         $this->mainController = new MainController();
     }
 
@@ -32,8 +32,45 @@ class WebApplication
 
         switch($action){
             case 'login':
-                $this->loginController->Login();
+                $this->accountController->Login();
                 break;
+
+            case 'register':
+                $this->accountController->Register();
+                break;
+
+            case 'logout':
+                $this->accountController->Logout();
+                break;
+
+            case 'products':
+                $this->mainController->displayProducts();
+                break;
+
+            case 'addCart':
+                $this->mainController->addToCart();
+                break;
+
+            case 'checkout':
+                $this->mainController->Checkout();
+                break;
+
+            case 'about':
+                $this->mainController->About();
+                break;
+
+            case 'contact':
+                $this->mainController->Contact();
+                break;
+
+            case 'seller':
+                $this->mainController->Seller();
+                break;
+
+            case 'order':
+                $this->mainController->Order();
+                break;
+
 
             case 'home':
             default:

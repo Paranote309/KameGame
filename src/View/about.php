@@ -1,17 +1,23 @@
-<?php require '../layout/header.php'; ?>
+<?php require 'layout/header.php'; ?>
 
     <div class="jumbotron">
         <div class="container">
             <h1> About us </h1>
-                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Aenean non turpis tempor nulla commodo facilisis in vitae est.
-                Sed viverra erat metus, a efficitur ante vehicula congue.
-                Ut lobortis, ex eu euismod sodales, dolor nunc bibendum nunc, quis viverra sem nunc tristique quam.
-                Integer a est ac lorem pulvinar maximus et id risus. Curabitur mollis nec ex non pellentesque.
-                Ut mollis enim eget euismod tempor. Morbi maximus venenatis porta.
-                Sed at dui elementum, tempor elit id, accumsan orci. Etiam mi enim, tristique eu gravida vulputate, semper ut elit. </p>
+                 <p>Welcome to KameGame, your number one source for all things Yu-Gi-Oh products. We're dedicated to providing you the very best of Yu gi oh cards and boxes,
+                     with an emphasis on fair prices, easy to browse webste and you can sell your own cards.
+
+
+                     Founded in 2022 by Benjamin Manzambi, KameGame has come a long way from its beginnings in Benjamin's Basement.
+                     When Benjamin first started out, his passion for love for Yu-gi-oh drove them to start their own business.
+
+                     We hope you enjoy our products as much as we enjoy offering them to you. If you have any questions or comments, please don't hesitate to contact us.
+
+
+                     Sincerely,
+
+                     Benjamin Manzambi </p>
         </div>
     </div>
 
 
-<?php require '../layout/footer.php'; ?>
+<?php require 'layout/footer.php'; ?>

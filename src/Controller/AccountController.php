@@ -31,7 +31,7 @@ namespace KameGame;
 
 use http\Header;
 
-class LoginController
+class AccountController
 {
 
     private $database;
@@ -46,17 +46,31 @@ class LoginController
 
 
         if (isset($username, $password)) {
-            $user = $this->database->getOne(
+
+            $_SESSION['user'] = $this->database->getOne(
                 tablename: "User",
                 column: "username",
                 value: $username
             );
+            if($_SESSION['user'] != false ){
 
-            if (password_verify($password, $user->password)) {
-                header("location:/?action=home");
+                if (password_verify($password,  $_SESSION['user']->getPassword())) {
+                    header("location:/?action=home");
+
+                }
+                else{
+                    echo "<script>
+                    alert(' Incorrect password'); 
+               </script>";
+                }
+
+            }
+            else{
+                echo "<script>
+                    alert('Incorrect username'); 
+               </script>";
             }
         }
-
          require '../src/View/login.php';
 
     }
@@ -67,22 +81,33 @@ class LoginController
         $email = filter_input(INPUT_POST, 'email');
         $age = filter_input(INPUT_POST, 'age');
         $location = filter_input(INPUT_POST, 'location');
+        $is_seller = filter_input(INPUT_POST,'is_seller');
 
-        if(isset($username,$password,$email,$age,$location)){
+        if(isset($username,$password,$email,$age,$location,$is_seller)){
             $new_user = array(
                 "username" => $_POST['username'],
-                "password" => $_POST['password'],
+                "password" => password_hash($_POST['password'],PASSWORD_DEFAULT),
                 "email" => $_POST['email'],
                 "age" => $_POST['age'],
-                "location" => $_POST['location']
+                "location" => $_POST['location'],
+                "is_seller" => $_POST['is_seller']
             );
             $user = $this->database->addOne(
                 tablename: "User",
                 values: $new_user
             );
 
-            require '../src/View/sign.php';
         }
+
+        require '../src/View/register.php';
+
+    }
+
+    public function Logout(){
+        session_destroy(); /* Destroy started session */
+
+        header("location:/?action=home");  /* Redirect to home page */
+        exit;
 
     }
 }

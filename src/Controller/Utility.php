@@ -4,7 +4,8 @@ namespace KameGame;
 
 class Utility
 {
-    public static function validate($data){
+    public static function validate(string $data): string
+    {
 
         $data = trim($data);
 

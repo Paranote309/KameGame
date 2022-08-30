@@ -1,12 +1,3 @@
-<?php require_once("../public/src/config.php");
-
-if(!$_SESSION['Active'] ){ /* Redirects user to Login.php if not logged in. Remember, we set $_SESSION['Active'] == true in login.php*/
-
-header("location:login.php");
-exit;
-
-
-} ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,44 +7,59 @@ exit;
     <meta name="author" content="">
     <link rel="shortcut icon" href="favicon.ico">
 
-    <title>TreeBranches.com:</title>
+    <title>Kame Game</title>
 
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css" />
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css" />
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
+    <script src="../js/html5shiv.js"></script>
+    <script src="../js/respond.min.js"></script>
     <![endif]-->
 </head>
 
-<body>
+<body style="padding-top:5rem ">
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.php"Kame Game </a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.php">Home</a></li>
-                    <li><a href="about.php">About</a></li>
-                    <li><a href="contact.php">Contact</a></li>
-                    <li><a href="order.php">Order</a></li>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="sign.php">Sign up</a></li>
-                    <li><form action="logout.php" method="post" name="Logout_Form" class="form-signin">
-                            <button name="Submit" value="Logout" class="button" type="submit">Log out</button>
-                        </form></li>
-                </ul>
-            </div>
-            <!--/.navbar-collapse -->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/?action=home">Kame Game</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+<!--                    <li class="nav-item"><a class="nav-link " href="/?action=home">Home</></li>-->
+                    <li class="nav-item"><a class="nav-link" href="/?action=about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/?action=contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/?action=products">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/?action=login">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/?action=register">Register</a></li>
+                    <?php
+                    if(isset($_SESSION['user'])) {
+                        echo <<<END
+                             <li class="nav-item"><a class="nav-link" href="/?action=logout">Log out</a></li>
+                        END;
+
+
+                        if ($_SESSION['user']->isSeller()) {
+                            echo <<<END
+                            
+                                 <li class="nav-item"><a class="nav-link" href="/?action=seller">Sell Product</a></li>
+                            END;
+
+                        }
+                    }
+
+                    ?>
+
+
+            </ul>
+
         </div>
     </div>
+</nav>
+
+
