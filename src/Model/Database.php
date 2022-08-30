@@ -62,7 +62,7 @@ class Database
         return $message . $separator;
     }
 
-    public function getAll(string $tablename): bool|array
+    public function getAll(string $tablename)
     {
         $sql = 'SELECT * FROM ' . $tablename;
 

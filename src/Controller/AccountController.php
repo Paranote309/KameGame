@@ -48,9 +48,9 @@ class AccountController
         if (isset($username, $password)) {
 
             $_SESSION['user'] = $this->database->getOne(
-                tablename: "User",
-                column: "username",
-                value: $username
+                 "User",
+                 "username",
+                $username
             );
             if($_SESSION['user'] != false ){
 
@@ -69,6 +69,7 @@ class AccountController
                 echo "<script>
                     alert('Incorrect username'); 
                </script>";
+                unset($_SESSION);
             }
         }
          require '../src/View/login.php';
@@ -93,8 +94,8 @@ class AccountController
                 "is_seller" => $_POST['is_seller']
             );
             $user = $this->database->addOne(
-                tablename: "User",
-                values: $new_user
+                 "User",
+                $new_user
             );
 
         }

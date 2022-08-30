@@ -43,7 +43,7 @@ class MainController
     {
 
         $GLOBALS['products'] = $this->database->getAll(
-            tablename: "Product"
+            "Product"
         );
 
         require '../src/View/products.php';
@@ -54,9 +54,9 @@ class MainController
 
         if (isset($prodID,$_SESSION['user'])) {
             $item = $this->database->getOne(
-                tablename: "Product",
-                column: "prodID",
-                value: $prodID
+                 "Product",
+                 "prodID",
+                 $prodID
             );
            array_push(  $_SESSION['cart'], $item);
            header("location:/?action=checkout");
@@ -87,8 +87,8 @@ class MainController
                 "userId" => $_SESSION['user']->getId()
             );
             $product = $this->database->addOne(
-                tablename: "Product",
-                values: $new_product
+                "Product",
+                 $new_product
             );
 
                 header("location:/?action=products");
@@ -111,9 +111,9 @@ class MainController
 
         foreach ($_SESSION['cart'] as $product) {
             $seller = $this->database->getOne(
-                tablename: "User",
-                column: "id",
-                value:$product->getUserId()
+                 "User",
+                "id",
+                $product->getUserId()
 
             );
 
@@ -126,7 +126,7 @@ class MainController
             // send email
             mail($seller->getEmail(), "Order Received", $msg);
         }
-        $_SESSION['cart'] = array(); // clear cart 
+        $_SESSION['cart'] = array(); // clear cart
         require '../src/View/confirmation.php';
 
     }
